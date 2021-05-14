@@ -1,22 +1,13 @@
 service:
-  name: serverless-dynamodb-api-boilerplate
+  name: backend-service-test-dynamodb
 
-frameworkVersion: ">=1.50.0"
+frameworkVersion: "2"
 
 custom:
-  stage: ${opt:stage, 'local'} # Fallback to "local" if not set via --stage flag
-
-  # As your solution will grow, you'll probably need to use Nested Stacks to avoid 200 resources limit of CloudFormation
-  # splitStacks:
-  #   perFunction: true
-  #   perType: false
-  #   perGroupFunction: false
-  #   stackConcurrency: 5
-  #   resourceConcurrency: 10
+  stage: ${opt:stage, 'dev'} # Fallback to "local" if not set via --stage flag
 
 plugins:
   - serverless-webpack
-  - serverless-plugin-tracing
   - serverless-offline
 
 provider:
@@ -26,8 +17,8 @@ provider:
     httpApi: true
   stackTags:
     Environment: ${self:custom.stage}
-  runtime: nodejs10.x
-  tracing: true # Enable X-Ray tracing
+  runtime: nodejs14.x
+  #tracing: true # Enable X-Ray tracing
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # Make sure AWS-SDK reuses HTTP connections
     DATA_STORE_ARN: datastore-${self:provider.stage}
@@ -35,21 +26,19 @@ provider:
 functions:
   # REST API
   - ${file(./functions/api/rest/get/function.yml)}
-  - ${file(./functions/api/rest/list/function.yml)} # TODO
-  - ${file(./functions/api/rest/create/function.yml)}
-  - ${file(./functions/api/rest/update/function.yml)} # TODO
-  - ${file(./functions/api/rest/delete/function.yml)}
+#  - ${file(./functions/api/rest/list/function.yml)} # TODO
+#  - ${file(./functions/api/rest/create/function.yml)}
+#  - ${file(./functions/api/rest/update/function.yml)} # TODO
+#  - ${file(./functions/api/rest/delete/function.yml)}
 
-  # GraphQL API
-  # To be added...
 
 resources:
-  # DynamoDB
-  - ${file(./infra/dynamodb/single-table-data-store.yml)}
+  ## DynamoDB
+#  - ${file(./infra/dynamodb/single-table-data-store.yml)}
 
-  # S3
-  - ${file(./infra/s3/dynamic-assets-bucket.yml)}
+  ## S3
+#  - ${file(./infra/s3/dynamic-assets-bucket.yml)}
 
-  # IAM
-  - ${file(./functions/api/rest/create/role.yml)}
-  - ${file(./functions/api/rest/get/role.yml)}
+  ## IAM
+#  - ${file(./functions/api/rest/create/role.yml)}
+#  - ${file(./functions/api/rest/get/role.yml)}

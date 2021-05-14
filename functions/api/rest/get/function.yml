@@ -1,6 +1,6 @@
 get:
   handler: functions/api/rest/get/function.handle
-  role: RestAPIGetFunctionRole
+#  role: RestAPIGetFunctionRole
   events:
     - httpApi:
         cors: true
