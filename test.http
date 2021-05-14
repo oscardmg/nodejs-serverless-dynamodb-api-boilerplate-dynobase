@@ -1,0 +1,8 @@
+GET https://bfmpwtx9c6.execute-api.us-east-1.amazonaws.com/deviceUser/2/8164681
+Accept: application/json
+
+###
+GET https://bfmpwtx9c6.execute-api.us-east-1.amazonaws.com/deviceUserv3/2/8164681
+Accept: application/json
+
+###

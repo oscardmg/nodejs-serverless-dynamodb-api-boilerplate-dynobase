@@ -1,6 +1,6 @@
 import { createController } from "./controller";
-import { documentClient } from "../../../../services/DynamoDB";
-import { APIGatewayProxyEventSample } from "../../../../consts/APIGatewayProxyEventSample";
+import { documentClient } from "../../services/DynamoDB";
+import { APIGatewayProxyEventSample } from "../../consts/APIGatewayProxyEventSample";
 
 describe("REST/Create", () => {
   test("returns created Thing", async done => {

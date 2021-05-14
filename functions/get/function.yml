@@ -1,0 +1,28 @@
+get:
+  handler: functions/get/function.handle
+  events:
+    - httpApi:
+        cors: true
+        method: get
+        path: /deviceUser/{type}/{number}
+        parameters:
+          paths:
+            type: true
+            number: true
+#          querystrings:
+#            documentType: true
+#            documentNumber: true
+getV3:
+  handler: functions/get/function.handleV3
+  events:
+    - httpApi:
+        cors: true
+        method: get
+        path: /deviceUserv3/{type}/{number}
+        parameters:
+          paths:
+            type: true
+            number: true
+#          querystrings:
+#            documentType: true
+#            documentNumber: true

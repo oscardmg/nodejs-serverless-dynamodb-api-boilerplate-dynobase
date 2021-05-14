@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDB } from "aws-sdk";
 import { uuid } from "uuidv4";
-import { ThingModel } from "../../../../models/Thing";
+import { ThingModel } from "../../models/Thing";
 import { Thing } from "./request_schema";
 
 // Separated business logic with injectable documentClient for testing purposes

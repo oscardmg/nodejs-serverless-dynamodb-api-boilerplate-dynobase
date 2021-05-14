@@ -1,5 +1,9 @@
 # Serverless DynamoDB API Boilerplate
 
+autocannon autocannon -c 2 -d 20 https://******.execute-api.us-east-1.amazonaws.com/deviceUserv3/2/8164681
+autocannon autocannon -c 2 -d 20 https://******.execute-api.us-east-1.amazonaws.com/deviceUser/2/8164681
+
+
 Kickstart your Cloud-native and Serverless project in minutes. **This is work in progress**
 
 ***

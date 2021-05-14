@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { DynamoDB } from "aws-sdk";
-import { ThingModel } from "../../../../models/Thing";
+import { ThingModel } from "../../models/Thing";
 
 // Separated business logic with injectable documentClient for testing purposes
-export const getController = async (
+export const deleteController = async (
   event: APIGatewayProxyEvent,
   documentClient: DynamoDB.DocumentClient
 ) => {
@@ -13,8 +13,8 @@ export const getController = async (
     date_added: event.queryStringParameters.date_added,
   }
   
-  const params = ThingModel.get(item)
-  const response = await documentClient.get(params).promise()
+  const params = ThingModel.delete(item)
+  const response = await documentClient.delete(params).promise()
   
   return ThingModel.parse(response);
 };

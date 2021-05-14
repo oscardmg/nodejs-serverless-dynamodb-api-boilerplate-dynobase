@@ -1,35 +1,43 @@
 service:
   name: backend-service-test-dynamodb
 
-frameworkVersion: "2"
+frameworkVersion: '2'
 
 custom:
-  stage: ${opt:stage, 'dev'} # Fallback to "local" if not set via --stage flag
 
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
   logs:
     restApi: true
     httpApi: true
   stackTags:
-    Environment: ${self:custom.stage}
-  runtime: nodejs14.x
-  #tracing: true # Enable X-Ray tracing
+    Environment: ${self:provider.stage}
+  deploymentBucket:
+    name: 'pco-app-${self:provider.stage}.${self:provider.region}.deploy-files'
+  lambdaHashingVersionen: 20201221
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'dynamodb:GetItem'
+        - 'dynamodb:Query'
+      Resource:
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/DeviceUser/*'
+    #- ${file(./infra/role/role.yml)}
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # Make sure AWS-SDK reuses HTTP connections
     DATA_STORE_ARN: datastore-${self:provider.stage}
 
 functions:
-  # REST API
-  - ${file(./functions/api/rest/get/function.yml)}
-#  - ${file(./functions/api/rest/list/function.yml)} # TODO
-#  - ${file(./functions/api/rest/create/function.yml)}
-#  - ${file(./functions/api/rest/update/function.yml)} # TODO
-#  - ${file(./functions/api/rest/delete/function.yml)}
+  - ${file(./functions/get/function.yml)}
+
 
 
 resources:
